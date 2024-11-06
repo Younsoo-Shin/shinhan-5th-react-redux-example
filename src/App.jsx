@@ -1,11 +1,13 @@
+import { RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import Counter from './components/Counter';
+
 import store from './store';
+import router from './router';
 
 function App() {
   return (
     <Provider store={store}>
-      <Counter />
+      <RouterProvider router={router} />
     </Provider>
   );
 }
