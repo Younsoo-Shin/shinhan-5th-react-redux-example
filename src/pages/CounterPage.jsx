@@ -8,8 +8,6 @@ import {
   setColor,
 } from '~/store/reducers/counter';
 
-import ColorInput from '~/components/ColorInput';
-
 export default function CounterPage() {
   const counter = useSelector((state) => state.counter);
   const dispatch = useDispatch();
