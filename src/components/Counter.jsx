@@ -1,6 +1,10 @@
 import React from 'react';
 
+// state를 조회
+import { useSelector } from 'react-redux';
+
 export default function Counter() {
+  const counterState = useSelector((state) => state.counter);
   return (
     <div>
       <h1>Counter</h1>
@@ -11,7 +15,7 @@ export default function Counter() {
       <div>
         <input type="text" />
       </div>
-      <h1>카운터내용.</h1>
+      <h1>{counterState.counter}</h1>
     </div>
   );
 }
