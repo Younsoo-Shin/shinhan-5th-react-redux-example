@@ -1,58 +1,28 @@
-// 초기값
-const initialState = {
-  counter: 0,
-  color: 'black',
-};
+// createSlice로 Counter 구성.
+import { createSlice } from '@reduxjs/toolkit';
+increaseCounter, decreaseCounter, setColor;
 
-// Action Type 정의
-export const INCREASE_COUNTER = 'counter/INCREASE_COUNTER';
-export const DECREASE_COUNTER = 'counter/DECREASE_COUNTER';
-export const SET_COLOR = 'counter/SET_COLOR';
-
-// Action Creator
-export const increaseCounter = () => {
-  return {
-    type: INCREASE_COUNTER,
-    payload: {},
-  };
-};
-
-export const decreaseCounter = () => {
-  return {
-    type: DECREASE_COUNTER,
-    payload: {},
-  };
-};
-export const setColor = (color) => {
-  return {
-    type: SET_COLOR,
-    payload: {
-      //   color: color,
-      color,
+const counterSlice = createSlice({
+  name: 'counter',
+  initialState: {
+    counter: 0,
+    color: 'black',
+  },
+  reducers: {
+    increaseCounter(state, action) {
+      state.counter += 1;
     },
-  };
-};
+    decreaseCounter(state, action) {
+      state.counter -= 1;
+    },
+    setColor(state, action) {
+      state.color = action.payload;
+    },
+  },
+});
 
-// Reducer
-function counterReducer(state = initialState, action) {
-  switch (action.type) {
-    case INCREASE_COUNTER:
-      return {
-        ...state,
-        counter: state.counter + 1,
-      };
-    case DECREASE_COUNTER:
-      return {
-        ...state,
-        counter: state.counter - 1,
-      };
-    case SET_COLOR:
-      return {
-        ...state,
-        color: action.payload.color,
-      };
-    default:
-      return state;
-  }
-}
-export default counterReducer;
+// action creator
+export const { increaseCounter, decreaseCounter, setColor } =
+  counterSlice.actions;
+// reducer
+export default counterSlice.reducer;

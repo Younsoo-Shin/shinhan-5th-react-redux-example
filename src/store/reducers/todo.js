@@ -1,56 +1,28 @@
-// npm install uuid
+import { createSlice } from '@reduxjs/toolkit';
 import { v4 as uuid4 } from 'uuid';
-// 1. initialState
+// 초기상태
 const initialState = {
-  todos: [], // 현재 todo배열.
+  todos: [],
 };
 
-// 2. action객체 정의
-// action객체: 주문서. (type+payload)
-const ADD_TODO = 'todo/ADD_TODO'; // todo를 추가하는 주문서(액션) 타입
-const REMOVE_TODO = 'todo/REMOVE_TODO'; // todo를 제거하는 주문서(액션) 타입
-
-// 2-1. action을 생성하는 actionCreator 함수.
-export const addTodo = (text) => {
-  return {
-    type: ADD_TODO,
-    payload: {
-      text: text,
+const todoSlice = createSlice({
+  name: 'todos',
+  initialState: initialState,
+  reducers: {
+    addTodo(state, action) {
+      // 내부적으로 immer.js 사용. (immutable 유지 시켜준다.)
+      // return 하지말자. (화살표함수에서는 return하면 정상적으로 동작하지 않을 수 있음.)
+      state.todos.push({
+        id: uuid4(),
+        text: action.payload,
+      });
     },
-  };
-};
-export const removeTodo = (id) => {
-  return {
-    type: REMOVE_TODO,
-    payload: {
-      id: id,
+    removeTodo(state, action) {
+      state.todos = state.todos.filter((todo) => todo.id !== action.payload);
     },
-  };
-};
-
-// 3. reducer정의
-export default function todoReducer(state = initialState, action) {
-  // reducer: state와 action을 받아 새로운 state를 return하는 함수.
-  switch (action.type) {
-    case ADD_TODO:
-      return {
-        ...state,
-        todos: [
-          ...state.todos,
-          {
-            id: uuid4(),
-            text: action.payload.text,
-          },
-        ],
-      };
-    case REMOVE_TODO:
-      return {
-        ...state,
-        todos: state.todos.filter((todo) => {
-          return todo.id !== action.payload.id;
-        }),
-      };
-    default:
-      return state;
-  }
-}
+  },
+});
+// action creator
+export const { addTodo, removeTodo } = todoSlice.actions;
+// reducer
+export default todoSlice.reducer;
