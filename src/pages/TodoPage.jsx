@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addTodo, removeTodo } from '~/store/reducers/todo';
+// import { addTodo, removeTodo } from '~/store/reducers/todo';
 
 export default function TodoPage() {
   /* 코드작성 */
@@ -9,7 +9,8 @@ export default function TodoPage() {
   return (
     <div>
       <input type="text" />
-      {cancelTodo && <button onClick={() => {}}>취소</button>}
+      {/* {cancelTodo && <button onClick={() => {}}>취소</button>} */}
+      <button onClick={() => {}}>취소</button>
       <button onClick={() => {}}>추가</button>
 
       <ul>
